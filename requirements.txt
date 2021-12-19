@@ -6,3 +6,4 @@ tqdm
 matplotlib
 numpy
 torchmetrics
+scikit-learn

@@ -1,9 +1,9 @@
 """
 Split file has the following structure:
 
-| sequence_id |    image_fp   | frame_idx |        split_type        |
-|-------------|---------------|-----------|--------------------------|
-|     int     | relative path |    int    | {'train', 'val', 'test'} |
+| sequence_id |    image_fp   | frame_idx |
+|-------------|---------------|-----------|
+|     int     | relative path |    int    |
 """
 import pathlib
 import pandas as pd

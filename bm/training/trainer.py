@@ -18,13 +18,14 @@ class Trainer:
                  logger: clearml.Logger = None,
                  model_save_path: pathlib.Path = None,
                  device=Config.device):
-        self.model = model
+        self.model = model.to(device)
         self.optimizer = optimizer
         self.criterion = criterion
         self.n_epochs = n_epochs
         self.train_loader = train_loader
         self.val_loader = val_loader
-        self.metrics = metrics
+        self.metrics = metrics if metrics is not None else torchmetrics.MetricCollection([])
+        self.metrics.to(device)
         self.logger = logger
         self.model_save_path = model_save_path
         self.device = device

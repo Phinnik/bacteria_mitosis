@@ -1,15 +1,21 @@
 import torch
+from torchvision.models import vgg11
+
+encoder = vgg11(pretrained=True).features
 
 
 class SiameseNet(torch.nn.Module):
-    def __init__(self, in_height: int, in_width: int, in_channels: int):
+    def __init__(self):
         super().__init__()
         self.image_encoder = torch.nn.Sequential(
-            torch.nn.Conv2d(in_channels, 1, kernel_size=(3, 3)),
+            encoder,
+            torch.nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2)),
             torch.nn.Flatten()
         )
         self.decoder = torch.nn.Sequential(
-            torch.nn.Linear((in_height - 2) * (in_width - 2) * 2, 1)
+            torch.nn.Linear(8192 * 2, 512),
+            torch.nn.Linear(512, 512),
+            torch.nn.Linear(512, 1),
         )
 
     def encode_image(self, image):
@@ -24,9 +30,3 @@ class SiameseNet(torch.nn.Module):
         encoding_2 = self.encode_image(image_2)
         return self.predict(encoding_1, encoding_2)
 
-
-if __name__ == '__main__':
-    model = SiameseNet(512, 512, 3)
-    img = torch.randn((3, 512, 512))
-    out = model(img[None, ...], img[None, ...])
-    print(out.shape)

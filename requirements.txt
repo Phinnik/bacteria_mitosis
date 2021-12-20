@@ -6,3 +6,6 @@ tqdm
 matplotlib
 numpy
 torchmetrics
+scikit-learn
+albumentations
+opencv-python

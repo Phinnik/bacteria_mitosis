@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from torch.utils.data import Dataset
 import itertools
@@ -34,7 +35,7 @@ class BacteriaCombinationsDataset(Dataset):
             image_1 = self.transforms(image=image_1)['image']
             image_2 = self.transforms(image=image_2)['image']
 
-        target = int(frame_idx_1 < frame_idx_2)
+        target = np.array([frame_idx_1 < frame_idx_2], dtype=np.float32)
         return image_1, image_2, target
 
     def __len__(self):

@@ -7,3 +7,4 @@ matplotlib
 numpy
 torchmetrics
 scikit-learn
+albumentations

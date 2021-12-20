@@ -8,3 +8,4 @@ numpy
 torchmetrics
 scikit-learn
 albumentations
+opencv-python
